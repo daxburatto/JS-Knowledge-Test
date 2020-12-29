@@ -3,93 +3,77 @@
 }
 
 :root {
-    --primary: var(#9933ff);
-    --secondary: var(#6e5ea8);
-    --tertiary: var(#f7f7f7);
-    --extra: var(#ffff7a);
-    font-size: 62.5%;
+    --primary: #9933ff;
+    --secondary: #6e5ea8;
+    --tertiary: #f7f7f7;
+    --grey: #bfbfbf;
+    --extra: #ffff7a;
 }
 
 body {
-    background:var(--secondary) ;
-    color: var(--extra);
+    background: var(--tertiary);
     margin: 0;
     padding: 0;
-    display: flex;
     min-height: 100vh;
-    flex-direction: row;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 header {
-    background-color: var(--secondary);
+    background-color: var(--tertiary);
     padding: 30px 25px;
-    border-bottom: 5px solid var(--extra);
+    margin: 0 10px;
+    border-bottom: 5px solid var(--secondary);
 }
 
-header h1 {
-    color: var(--tertiary);
-}
-
-header h2 {
-    color: var(--tertiary);
-    margin: 5px 0 20px;
-    font-size: 2rem;
+footer {
+    width: 100%;
+    background-color: var(--tertiary);
+    color: var(--secondary);
+    font-size: 2.4rem;
+    padding: 20px;
+    border-top: 5px solid var(--secondary);
 }
 
 .page-title {
-    color: var(--secondary);
-    font-size: 50%;
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    margin-top: 0;
+    justify-content: left;
+    text-shadow: 0 2px black;
 }
 
 .page-desc {
-    background-color: var(--tertiary);
-}
-
-.test-start {
-    flex: 1;
-    background-color: var(--extra);
-}
-
-.start-btn {
-    background-color: var(--primary);
-}
-
-.btn {
-    font: 20%;
-}
-
-.test-timer {
-    background-color: var(--primary);
+    color: var(--secondary);
+    font-size: 1.5rem;
 }
 
 .page-content {
-    background-color: var(--secondary);
+    min-height: 500px;
+    background-color: var(--grey);
+    justify-content: center;
+    margin: 10px;
+}
+
+.btn {
+    outline: none;
+    border: none;
+    padding: 10px;
+    background-color: #ffff7a;
+    font-size: 1.5rem;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 3px black;
 }
 
 .test-question-wrapper {
-    background-color: var(--primary);
-    flex: 1 auto;
-}
-
-.question-prompt {
-    font-size: 62.5%;
-}
-
-.question-box {
-    font-size: 30%;
+    background-color: var(--secondary);
+    min-height: 100px;
+    margin: 10px 30px;
 }
 
 .test-answer-wrapper {
     background-color: var(--tertiary);
-    flex: 1 auto;
+    min-height: 300px;
+    margin: 0 30px;
 }
-
-.enter-answer {
-    flex: 2 auto;
-}
-
-.answer-box {
-    flex: 3 auto;
-}
-
