@@ -39,6 +39,7 @@ header h2 {
 
 .page-title {
     color: var(--secondary);
+    font-size: 50%;
 }
 
 .page-desc {
