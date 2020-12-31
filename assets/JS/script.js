@@ -1,8 +1,8 @@
 var testAnswerEl = document.querySelector("#answer-box")
 var testQuestionEL = document.querySelector("#question-box")
 var testMenuEl = document.querySelector("#test-menu")
-
-const questions = [
+var quizContainer = document.querySelector("#page-content")
+var questionArray = [
     {
         question: "Who Invented JavaScript?",
         answers: {
@@ -34,7 +34,7 @@ const questions = [
         correctAnswer:"d"
     },
     {
-        question:"Why do JavaScript and Java have such similar names?"
+        question:"Why do JavaScript and Java have such similar names?",
         answers: {
             a:"JS is a stripped down Java",
             b:"JS syntax is loosely based on Java's",
@@ -157,21 +157,36 @@ const questions = [
 
 // start test function
 var startTestEl = function () {
-    
+    // variable to store the HTML Output
+    const output = []
+
+    // for each question
+    questionArray.forEach((currentQuestion, questionNumber) => {
+        // variable to store the list of possible answers
+        const answers = []
+
+        // and for each available answer
+        for(letter in currentQuestion.answers){
+            // add an HTML Radio button
+            answers.push(
+                `<label>
+                    <input type="radio" name="questions${questionNumber}" value="$(letter"/>
+                    ${letter} :
+                    ${currentQuestion.answers[letter]}
+                </label>`
+            )
+        }
+        // add this question and its answers to the output
+        output.push(
+            `<div class="question"> ${currentQuestion.question} </div>
+            <div class="answers"> ${answers.join('')} </div>`
+        )
+    });
+    // finally combine our output list into one string of HTML and put it on the page
+    quizContainer.innerHTML = output.join('')
 }
 
-var loadQuestionEl = function () {
-    
-}
-
-var saveScoreEl = function () {
-
-}
-
-var highScoreEl = function () {
-
-}
-
+startTestEl()
 
 
 
