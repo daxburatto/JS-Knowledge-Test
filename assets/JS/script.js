@@ -1,8 +1,96 @@
-var testAnswerEl = document.querySelector("#answer-box")
-var testQuestionEL = document.querySelector("#question-box")
-var testMenuEl = document.querySelector("#test-menu")
-var quizContainer = document.querySelector("#page-content")
-var questionArray = [
+
+(function () {
+        // start test function
+var startTestEl = function () {
+
+    // variable to store the HTML Output
+    const output = []
+
+    // for each question
+    questionArray.forEach(
+        (currentQuestion, questionNumber) => {
+        // variable to store the list of possible answers
+        const answers = []
+
+        // and for each available answer
+        for(letter in currentQuestion.answers){
+            // add an HTML Radio button
+            answers.push(
+                `<label>
+                    <input type="radio" name="questions${questionNumber}" value="$(letter"/>
+                    ${letter} :
+                    ${currentQuestion.answers[letter]}
+                </label>`
+            )
+        }
+        output.push(
+            `<div class="slide">
+            <div class="question"> ${currentQuestion.question} </div>
+            <div class="answers"> ${answers.join} </div>
+            </div>`
+        )  
+    });
+    // finally combine our output list into one string of HTML and put it on the page
+    quizContainer.innerHTML = output.join('')
+
+}
+
+function showResults() {
+    // gather all answers from test
+    const answerContainer = quizContainer.querySelectorAll('.answers')
+    
+    // keep track of user's answers
+    let numCorrect = 0
+
+    // for each question
+    questionArray.forEach((currentQuestion, questionNumber) => {
+        // find selected answer
+        const answerContainer = answerContainer[questionNumber]
+        const selector = `input[name=question${questionNumber}]:checked`
+        const userAnswer = (answerContainer.querySelector(selector) || {}).value 
+        // if answer is correct
+        if (userAnswer === currentQuestion.correctAnswer) {
+            // add to the number of correct answers
+            numCorrect++
+            // color the answers green
+            answerContainer[questionNumber].style.color = 'light-green'
+        } // If answer is wrong or blank 
+        else {
+            answerContainer[questionNumber].style.color = 'red'
+        }
+    })
+}
+
+// bring question[0] and answers[0} to front
+function showSlide(n) {
+    slides[currentSlide].classList.remove('active-slide')
+    slides[n].classList.add('active-slide')
+    currentSlide = n
+    if (currentSlide === 0) {
+        previousButton.style.display = 'none'
+    } else {
+        previousButton.style.display = 'inline-block'
+    }
+    if (currentSlide === slides.length-1) {
+        nextButton.style.display = 'none'
+        submitButton.style.display = 'inline-block'
+    } else {
+        nextButton.style.display = 'inline-block'
+        submitButton.style.display = 'none'
+    }
+}
+
+function showNextSlide() {
+    showSlide(currentSlide + 1)
+}
+
+function showPreviousSlide() {
+    showSlide(currentSlide - 1)
+}
+
+const resultsContainer = document.getElementById("results")
+const quizContainer = document.querySelector("#page-content")
+const questionArray = [
     {
         question: "Who Invented JavaScript?",
         answers: {
@@ -155,40 +243,23 @@ var questionArray = [
     },
 ]
 
-// start test function
-var startTestEl = function () {
-    // variable to store the HTML Output
-    const output = []
-
-    // for each question
-    questionArray.forEach((currentQuestion, questionNumber) => {
-        // variable to store the list of possible answers
-        const answers = []
-
-        // and for each available answer
-        for(letter in currentQuestion.answers){
-            // add an HTML Radio button
-            answers.push(
-                `<label>
-                    <input type="radio" name="questions${questionNumber}" value="$(letter"/>
-                    ${letter} :
-                    ${currentQuestion.answers[letter]}
-                </label>`
-            )
-        }
-        // add this question and its answers to the output
-        output.push(
-            `<div class="question"> ${currentQuestion.question} </div>
-            <div class="answers"> ${answers.join('')} </div>`
-        )
-    });
-    // finally combine our output list into one string of HTML and put it on the page
-    quizContainer.innerHTML = output.join('')
-}
-
 startTestEl()
 
+const startButton = document.getElementById("start-test")
+const previousButton = document.getElementById("previous")
+const nextButton = document.getElementById("next")
+const submitButton = document.getElementById("submit")
+const slides = document.getElementById(".slide")
+let currentSlide = 0
 
+showSlide(currentSlide)
 
 // click start button, test starts over
-testMenuEl.addEventListener("click", startTestEl)
+startButton.addEventListener("click", startTestEl)
+// go back a question
+previousButton.addEventListener("click", showPreviousSlide)
+// go forward a question
+nextButton.addEventListener("click", showNextSlide)
+// show results
+submitButton.addEventListener("click", showResults)
+})
